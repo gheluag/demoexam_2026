@@ -31,7 +31,7 @@ namespace ShoeShop
             LoadUserInfo();
             ConfigInfo();
             LoadSuppliers();
-            Loaded += CatalogWindow_Loaded;
+            LoadProdData();
         }
 
 

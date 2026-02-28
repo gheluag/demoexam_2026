@@ -113,20 +113,7 @@
 
             <ListBox x:Name="prodList" ScrollViewer.VerticalScrollBarVisibility="Hidden">
 
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem">
-
-                        <Setter Property="Background" Value="Transparent" />
-                        <Setter Property="Margin" Value="0,5" />
-
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Count}" Value="0">
-                                <Setter Property="Background" Value="LightBlue" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ListBox.ItemContainerStyle>
-
+                
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -146,8 +133,7 @@
                                     Height="117"
                                     HorizontalAlignment="Stretch"
                                     VerticalAlignment="Stretch"
-                                    Source="{Binding Image, Converter={StaticResource ImagePathConverter}}"
-                                    Stretch="UniformToFill" />
+                                    Source="{Binding Image, Converter={StaticResource ImagePathConverter}}" />
                             </Border>
 
                             <Border
