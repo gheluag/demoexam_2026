@@ -63,7 +63,7 @@ namespace ShoeShop
 
         private void LoadProdData()
         {
-            if (prodList == null || SupplierCB == null || SortCB == null || SearchTB == null)
+            if (prodList == null )
                 return;
 
             try
@@ -77,7 +77,7 @@ namespace ShoeShop
                     .Include(p => p.ProdNameNavigation)
                     .AsQueryable();
 
-                if (!string.IsNullOrWhiteSpace(SearchTB.Text))
+                /*if (!string.IsNullOrWhiteSpace(SearchTB.Text))
                 {
                     string text = SearchTB.Text.ToLower();
 
@@ -98,7 +98,7 @@ namespace ShoeShop
                     query = query.OrderBy(p => p.Count);
 
                 if (SortCB.SelectedIndex == 2)
-                    query = query.OrderByDescending(p => p.Count);
+                    query = query.OrderByDescending(p => p.Count);*/
 
                 prodList.ItemsSource = query.ToList();
             }
