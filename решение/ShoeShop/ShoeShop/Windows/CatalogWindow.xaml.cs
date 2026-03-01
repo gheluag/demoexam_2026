@@ -53,7 +53,7 @@ namespace ShoeShop
 
         private void LoadProdData()
         {
-            if (prodList == null )
+            if (prodList == null || SupplierCB == null || SortCB == null || SearchTB == null)
                 return;
 
             try
