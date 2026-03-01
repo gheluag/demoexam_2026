@@ -17,7 +17,7 @@ namespace ShoeShop
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class CatalogWindow : Window
-    {
+    {  
         public CatalogWindow()
         {
             InitializeComponent();
@@ -27,7 +27,9 @@ namespace ShoeShop
             ConfigInfo();
             LoadSuppliers();
             LoadProdData();
+            
         }
+
 
 
 
@@ -53,7 +55,7 @@ namespace ShoeShop
 
         private void LoadProdData()
         {
-            if (prodList == null )
+            if (prodList == null || SupplierCB == null || SortCB == null || SearchTB == null)
                 return;
 
             try
