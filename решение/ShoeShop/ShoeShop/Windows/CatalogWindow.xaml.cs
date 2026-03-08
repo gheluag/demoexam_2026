@@ -155,6 +155,7 @@ namespace ShoeShop
         {
             AddProdWindow addProdWindow = new();
             addProdWindow.ShowDialog();
+            if(addProdWindow.DialogResult == true)
             LoadProdData();
         }
 
@@ -172,7 +173,7 @@ namespace ShoeShop
 
             EditProdWindow win = new(product);
             win.ShowDialog();
-
+            if(win.DialogResult == true)
             LoadProdData();
 
         }

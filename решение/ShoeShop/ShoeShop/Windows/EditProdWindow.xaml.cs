@@ -2,36 +2,25 @@
 using ShoeShop.DbContexts;
 using ShoeShop.Entities;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-
 
 namespace ShoeShop.Windows
 {
-    /// <summary>
-    /// Логика взаимодействия для EditProdWindow.xaml
-    /// </summary>
     public partial class EditProdWindow : Window
     {
-        private Product _product;
-        private string? _newImagePath;
-        public EditProdWindow(Product product)
+        private Product product;
+        private string? newImagePath;
+
+        private string imagesDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images");
+
+        public EditProdWindow(Product prod)
         {
             InitializeComponent();
+            product = prod;
 
-            _product = product;
-
-           
             LoadComboBoxes();
             LoadProduct();
         }
@@ -45,160 +34,44 @@ namespace ShoeShop.Windows
             ProdNameCB.ItemsSource = db.Prodnames.ToList();
         }
 
-        private void SaveBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (!decimal.TryParse(PriceTB.Text, out decimal price) || price < 0 ||
-       !int.TryParse(CountTB.Text, out int count) || count < 0 ||
-       !int.TryParse(SaleTB.Text, out int sale) || sale < 0)
-            {
-                MessageBox.Show("Некорректные числовые значения");
-                return;
-            }
-
-            using var db = new ShoeshopContext();
-
-            Product prod = db.Products.First(p => p.IdProd == _product.IdProd);
-
-            prod.Price = price;
-            prod.Count = count;
-            prod.Sale = sale;
-            prod.Descrip = DescTB.Text;
-
-            prod.CatId = ((Category)CategoryCB.SelectedItem).IdCat;
-            prod.ManufId = ((Manufacrurer)ManufCB.SelectedItem).IdManuf;
-            prod.SupId = ((Supplier)SupplierCB.SelectedItem).IdSup;
-            prod.ProdName = ((Prodname)ProdNameCB.SelectedItem).IdProdName;
-
-            if (_newImagePath != null)
-                prod.Image = SaveImage(_newImagePath, prod.Image);
-
-            db.SaveChanges();
-
-            DialogResult = true;
-
-            Close();
-        }
-
-        private string SaveImage(string sourcePath, string? oldImage)
-        {
-            string imagesDir = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
-                "Images"
-            );
-
-            Directory.CreateDirectory(imagesDir);
-
-        
-            string newFileName = Guid.NewGuid() + Path.GetExtension(sourcePath);
-            string newFullPath = Path.Combine(imagesDir, newFileName);
-
-           
-            using (FileStream sourceStream = new FileStream(sourcePath, FileMode.Open, FileAccess.Read))
-            using (FileStream destStream = new FileStream(newFullPath, FileMode.Create))
-            {
-                sourceStream.CopyTo(destStream);
-            }
-
-          
-            if (!string.IsNullOrEmpty(oldImage))
-            {
-                string oldFullPath = Path.Combine(imagesDir, oldImage);
-                if (File.Exists(oldFullPath))
-                {
-                    try
-                    {
-                        File.Delete(oldFullPath);
-                    }
-                    catch
-                    {
-                     
-                    }
-                }
-            }
-
-            return newFileName;
-        }
-
-
-        private void CancelBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-
-
         private void LoadProduct()
         {
-            IdTB.Text = _product.IdProd.ToString();
-            DescTB.Text = _product.Descrip;
-            PriceTB.Text = _product.Price.ToString();
-            CountTB.Text = _product.Count.ToString();
-            SaleTB.Text = _product.Sale.ToString();
-
+            IdTB.Text = product.IdProd.ToString();
+            DescTB.Text = product.Descrip;
+            PriceTB.Text = product.Price.ToString();
+            CountTB.Text = product.Count.ToString();
+            SaleTB.Text = product.Sale.ToString();
             CouTB.Text = "шт";
 
-            CategoryCB.SelectedValue = _product.CatId;
-            ManufCB.SelectedValue = _product.ManufId;
-            SupplierCB.SelectedValue = _product.SupId;
-            ProdNameCB.SelectedValue = _product.ProdName;
+            CategoryCB.SelectedValue = product.CatId;
+            ManufCB.SelectedValue = product.ManufId;
+            SupplierCB.SelectedValue = product.SupId;
+            ProdNameCB.SelectedValue = product.ProdName;
 
-            LoadImage(_product.Image);
-
+            LoadImage(product.Image);
         }
-
-
-      
-
 
         private void LoadImage(string? fileName)
         {
-            string imagesDir = Path.Combine(
-        AppDomain.CurrentDomain.BaseDirectory,
-        "Images"
-    );
+            string path = Path.Combine(imagesDir, fileName ?? "picture.png");
 
-            if (string.IsNullOrEmpty(fileName))
-                fileName = "picture.png";
+            if (!File.Exists(path))
+                path = Path.Combine(imagesDir, "picture.png");
 
-            string fullPath = Path.Combine(imagesDir, fileName);
-
-            if (!File.Exists(fullPath))
-                fullPath = Path.Combine(imagesDir, "picture.png");
-
-            BitmapImage bmp = new();
-            using (FileStream fs = new(fullPath, FileMode.Open, FileAccess.Read))
-            {
-                bmp.BeginInit();
-                bmp.CacheOption = BitmapCacheOption.OnLoad;
-                bmp.StreamSource = fs;
-                bmp.EndInit();
-                bmp.Freeze();
-            }
-
-            ProdImg.Source = bmp;
+            ProdImg.Source = new BitmapImage(new Uri(path));
         }
-
-
-
-
-
 
         private void ChangeImageBtn_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog dlg = new()
+            OpenFileDialog dlg = new OpenFileDialog
             {
-                Filter = "Изображения (*.jpg;*.png)|*.jpg;*.png"
+                Filter = "Images (*.jpg;*.png)|*.jpg;*.png"
             };
 
             if (dlg.ShowDialog() != true)
                 return;
 
-            BitmapImage bmp = new();
-            bmp.BeginInit();
-            bmp.CacheOption = BitmapCacheOption.OnLoad;
-            bmp.UriSource = new Uri(dlg.FileName);
-            bmp.EndInit();
-            bmp.Freeze();
+            BitmapImage bmp = new BitmapImage(new Uri(dlg.FileName));
 
             if (bmp.PixelWidth > 300 || bmp.PixelHeight > 200)
             {
@@ -206,15 +79,55 @@ namespace ShoeShop.Windows
                 return;
             }
 
-            _newImagePath = dlg.FileName;
+            newImagePath = dlg.FileName;
             ProdImg.Source = bmp;
         }
 
+        private void SaveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (!decimal.TryParse(PriceTB.Text, out decimal price) || price < 0 ||
+                !int.TryParse(CountTB.Text, out int count) || count < 0 ||
+                !int.TryParse(SaleTB.Text, out int sale) || sale < 0)
+            {
+                MessageBox.Show("Некорректные числовые значения");
+                return;
+            }
 
+            using var db = new ShoeshopContext();
+            var prod = db.Products.First(p => p.IdProd == product.IdProd);
 
+            prod.Price = price;
+            prod.Count = count;
+            prod.Sale = sale;
+            prod.Descrip = DescTB.Text;
+            prod.CatId = ((Category)CategoryCB.SelectedItem).IdCat;
+            prod.ManufId = ((Manufacrurer)ManufCB.SelectedItem).IdManuf;
+            prod.SupId = ((Supplier)SupplierCB.SelectedItem).IdSup;
+            prod.ProdName = ((Prodname)ProdNameCB.SelectedItem).IdProdName;
+
+            if (newImagePath != null)
+            {
+                if (!Directory.Exists(imagesDir))
+                    Directory.CreateDirectory(imagesDir);
+
+                string newFileName = Path.GetFileName(newImagePath);
+                string destPath = Path.Combine(imagesDir, newFileName);
+                File.Copy(newImagePath, destPath, true);
+
+                prod.Image = newFileName;
+            }
+
+            db.SaveChanges();
+
+            MessageBox.Show("Товар обновлен");
+            DialogResult = true;
+            Close();
+        }
+
+        private void CancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+            Close();
+        }
     }
-
-
-
 }
-

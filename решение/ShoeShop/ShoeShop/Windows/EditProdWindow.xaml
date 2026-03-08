@@ -13,150 +13,144 @@
         <conv:ImagePathConverter x:Key="ImagePathConverter" />
     </Window.Resources>
 
-    <Grid>
+    <Grid Margin="10">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5" />
-            <ColumnDefinition Width="550" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="350" />
         </Grid.ColumnDefinitions>
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
             <RowDefinition />
-            <RowDefinition />
-            <RowDefinition Height="100" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <ScrollViewer
-    Grid.Row="1"
-    Grid.RowSpan="2"
-    Grid.Column="1"
-    VerticalScrollBarVisibility="Auto">
-            <StackPanel
-            Grid.Row="1"
-            Grid.RowSpan="2"
-            Grid.Column="1">
+
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="10">
                 <TextBlock
-                Margin="10,5"
-                FontSize="20"
-                Text="Id" />
+                    Margin="0,5"
+                    FontSize="16"
+                    Text="Id" />
                 <TextBox
-                x:Name="IdTB"
-                Margin="5"
-                Background="#EEE"
-                IsReadOnly="True" />
+                    x:Name="IdTB"
+                    Margin="0,0,0,10"
+                    Background="#EEE"
+                    IsReadOnly="True" />
 
                 <TextBlock
-                Margin="10,5"
-                FontSize="20"
-                Text="Наименование" />
+                    Margin="0,5"
+                    FontSize="16"
+                    Text="Наименование" />
                 <ComboBox
-                x:Name="ProdNameCB"
-                Margin="5"
-                DisplayMemberPath="ProdName1"
-                SelectedValuePath="IdProdName" />
+                    x:Name="ProdNameCB"
+                    Margin="0,0,0,10"
+                    DisplayMemberPath="ProdName1"
+                    SelectedValuePath="IdProdName" />
 
                 <TextBlock
-                Margin="10,5"
-                FontSize="20"
-                Text="Категория" />
+                    Margin="0,5"
+                    FontSize="16"
+                    Text="Категория" />
                 <ComboBox
-                x:Name="CategoryCB"
-                Margin="5"
-                DisplayMemberPath="CatName"
-                SelectedValuePath="IdCat" />
+                    x:Name="CategoryCB"
+                    Margin="0,0,0,10"
+                    DisplayMemberPath="CatName"
+                    SelectedValuePath="IdCat" />
 
                 <TextBlock
-                Margin="10,5"
-                FontSize="20"
-                Text="Описание" />
+                    Margin="0,5"
+                    FontSize="16"
+                    Text="Описание" />
                 <TextBox
-                x:Name="DescTB"
-                Width="500"
-                Margin="5"
-                TextWrapping="Wrap" />
+                    x:Name="DescTB"
+                    Height="100"
+                    Margin="0,0,0,10"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap" />
 
                 <TextBlock
-                Margin="10,5"
-                FontSize="20"
-                Text="Производитель" />
+                    Margin="0,5"
+                    FontSize="16"
+                    Text="Производитель" />
                 <ComboBox
-                x:Name="ManufCB"
-                Margin="5"
-                DisplayMemberPath="ManufName"
-                SelectedValuePath="IdManuf" />
+                    x:Name="ManufCB"
+                    Margin="0,0,0,10"
+                    DisplayMemberPath="ManufName"
+                    SelectedValuePath="IdManuf" />
 
                 <TextBlock
-                Margin="10,5"
-                FontSize="20"
-                Text="Поставщик" />
+                    Margin="0,5"
+                    FontSize="16"
+                    Text="Поставщик" />
                 <ComboBox
-                x:Name="SupplierCB"
-                Margin="5"
-                DisplayMemberPath="SupName"
-                SelectedValuePath="IdSup" />
+                    x:Name="SupplierCB"
+                    Margin="0,0,0,10"
+                    DisplayMemberPath="SupName"
+                    SelectedValuePath="IdSup" />
 
                 <TextBlock
-                Margin="10,5"
-                FontSize="20"
-                Text="Цена" />
-                <TextBox x:Name="PriceTB" Margin="5" />
+                    Margin="0,5"
+                    FontSize="16"
+                    Text="Цена" />
+                <TextBox x:Name="PriceTB" Margin="0,0,0,10" />
 
                 <TextBlock
-                Margin="10,5"
-                FontSize="20"
-                Text="Единица измерения" />
-                <TextBox x:Name="CouTB" Margin="5" />
+                    Margin="0,5"
+                    FontSize="16"
+                    Text="Единица измерения" />
+                <TextBox x:Name="CouTB" Margin="0,0,0,10" />
 
                 <TextBlock
-                Margin="10,5"
-                FontSize="20"
-                Text="Количество на складе" />
-                <TextBox x:Name="CountTB" Margin="5" />
+                    Margin="0,5"
+                    FontSize="16"
+                    Text="Количество на складе" />
+                <TextBox x:Name="CountTB" Margin="0,0,0,10" />
 
                 <TextBlock
-                Margin="10,5"
-                FontSize="20"
-                Text="Действующая скидка" />
-                <TextBox x:Name="SaleTB" Margin="5" />
+                    Margin="0,5"
+                    FontSize="16"
+                    Text="Скидка (%)" />
+                <TextBox x:Name="SaleTB" Margin="0,0,0,10" />
             </StackPanel>
         </ScrollViewer>
 
-        <StackPanel
-            Grid.Row="1"
-            Grid.RowSpan="2"
-            Grid.Column="2"
-            HorizontalAlignment="Center">
-            <Image
-                x:Name="ProdImg"
+        <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+            <Border
                 Width="300"
                 Height="200"
-                Margin="5"
-                Stretch="Uniform" />
+                Margin="0,0,0,10"
+                BorderBrush="Gray"
+                BorderThickness="1">
+                <Image x:Name="ProdImg" Stretch="Uniform" />
+            </Border>
+
             <Button
-                Margin="5"
+                x:Name="ChangeImageBtn"
+                Width="200"
+                Margin="0,0,0,20"
                 Click="ChangeImageBtn_Click"
                 Content="Изменить изображение"
-                Cursor="Hand"
                 Style="{StaticResource LoginBtn}" />
         </StackPanel>
 
-
         <StackPanel
-            Grid.Row="3"
-            Grid.Column="1"
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Margin="0,20,0,0"
+            HorizontalAlignment="Center"
             Orientation="Horizontal">
             <Button
                 x:Name="SaveBtn"
+                Width="100"
                 Margin="5"
                 Click="SaveBtn_Click"
                 Content="Сохранить"
-                Cursor="Hand"
                 Style="{StaticResource LoginBtn}" />
             <Button
                 x:Name="CancelBtn"
+                Width="100"
                 Margin="5"
                 Click="CancelBtn_Click"
                 Content="Отмена"
-                Cursor="Hand"
                 Style="{StaticResource LoginBtn}" />
         </StackPanel>
     </Grid>
