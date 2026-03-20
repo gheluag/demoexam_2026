@@ -23,6 +23,7 @@ namespace ShoeShop.Windows
     public partial class AddProdWindow : Window
     {
         private string imagePath = null;
+        private string imagesDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images");
         public AddProdWindow()
         {
             InitializeComponent();
@@ -91,7 +92,7 @@ namespace ShoeShop.Windows
 
             if (imagePath != null)
             {
-                string imagesDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images");
+                
                 imageFile = Path.GetFileName(imagePath);
 
                 File.Copy(imagePath, Path.Combine(imagesDir, imageFile), true);

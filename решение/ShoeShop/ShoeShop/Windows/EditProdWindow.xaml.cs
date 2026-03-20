@@ -94,7 +94,7 @@ namespace ShoeShop.Windows
             }
 
             using var db = new ShoeshopContext();
-            var prod = db.Products.First(p => p.IdProd == product.IdProd);
+            var prod = db.Products.FirstOrDefault(p => p.IdProd == product.IdProd);
 
             prod.Price = price;
             prod.Count = count;

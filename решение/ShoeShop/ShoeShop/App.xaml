@@ -5,11 +5,6 @@
     xmlns:local="clr-namespace:ShoeShop"
     StartupUri="/Windows/LoginWin.xaml">
     <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Styles/MainFont.xaml" />
-                <ResourceDictionary Source="/Styles/Styles.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <ResourceDictionary Source="Styles.xaml" />
     </Application.Resources>
 </Application>

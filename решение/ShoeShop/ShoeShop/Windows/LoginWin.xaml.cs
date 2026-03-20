@@ -27,24 +27,7 @@ namespace ShoeShop.Windows
             InitializeComponent();
         }
 
-
-        private void LoginTB_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            LoginPlaceholder.Visibility =
-                string.IsNullOrWhiteSpace(LoginTB.Text)
-                ? Visibility.Visible
-                : Visibility.Hidden;
-        }
-
-        private void PasswTB_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            PasswPlaceholder.Visibility =
-                string.IsNullOrWhiteSpace(PasswTB.Password)
-                ? Visibility.Visible
-                : Visibility.Hidden;
-        }
-
-        private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void GuestTb_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             CurrentUser.Id = 0;
             CurrentUser.Role = "Гость";

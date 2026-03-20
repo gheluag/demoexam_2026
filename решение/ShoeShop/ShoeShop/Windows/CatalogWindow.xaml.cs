@@ -22,8 +22,7 @@ namespace ShoeShop
         {
             InitializeComponent();
 
-            
-            LoadUserInfo();
+            UserNameTB.Text = CurrentUser.FullName;
             ConfigInfo();
             LoadSuppliers();
             LoadProdData();
@@ -46,10 +45,6 @@ namespace ShoeShop
 
         }
 
-        private void LoadUserInfo()
-        {
-            UserNameTB.Text = CurrentUser.FullName;
-        }
 
         private void LoadProdData()
         {
@@ -206,14 +201,14 @@ namespace ShoeShop
                     return;
                 }
 
-                var result = MessageBox.Show(
+                var result = MessageBox.Show(   // НАЧАЛО
                     "Удалить выбранный товар?",
                     "Подтверждение",
-                    MessageBoxButton.YesNo,
+                    MessageBoxButton.YesNo,        // ЭТОТ БЛОК ЯВЛЯЕТСЯ НЕОБЯЗАТЕЛЬНЫМ
                     MessageBoxImage.Question);
 
                 if (result != MessageBoxResult.Yes)
-                    return;
+                    return;                         // КОНЕЦ
 
                 var prod = db.Products.Find(product.IdProd);
                 db.Products.Remove(prod);

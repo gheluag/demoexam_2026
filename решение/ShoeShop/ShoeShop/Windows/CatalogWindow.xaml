@@ -6,9 +6,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ShoeShop"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="ООО &quot;Обувь&quot;"
+    Title="Каталог товаров"
     Width="860"
     Height="770"
+    Icon="/Images/Icon.ico"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -72,7 +73,7 @@
 
             <Grid>
                 <StackPanel>
-                    <TextBlock Text="Поиск" FontSize="15"/>
+                    <TextBlock FontSize="15" Text="Поиск" />
                     <TextBox
                         x:Name="SearchTB"
                         Height="30"
@@ -88,7 +89,7 @@
                 x:Name="SupplierCB"
                 Grid.Column="1"
                 Height="30"
-                Margin="5, 15, 5, 5"
+                Margin="5,15,5,5"
                 VerticalAlignment="Center"
                 DisplayMemberPath="SupName"
                 SelectedValuePath="IdSup"
@@ -97,7 +98,7 @@
             <ComboBox
                 x:Name="SortCB"
                 Grid.Column="2"
-                Margin="5, 15, 5, 5"
+                Margin="5,15,5,5"
                 SelectionChanged="SortCB_SelectionChanged">
                 <ComboBoxItem Content="Без сортировки" IsSelected="True" />
                 <ComboBoxItem Content="По возрастанию" />
@@ -109,11 +110,14 @@
         <Border
             Grid.Row="2"
             Margin="5"
-            Style="{StaticResource BorderSt}">
+            Style="{StaticResource ListBorder}">
 
-            <ListBox x:Name="prodList" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+            <ListBox
+                x:Name="prodList"
+                BorderThickness="0"
+                ScrollViewer.VerticalScrollBarVisibility="Hidden">
 
-                
+
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -126,26 +130,20 @@
                             <Border
                                 Grid.Column="0"
                                 Margin="5"
-                                Style="{StaticResource BorderSt}">
-                                <Image
-                                    x:Name="prodImg"
-                                    Width="150"
-                                    Height="117"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    Source="{Binding Image, Converter={StaticResource ImagePathConverter}}" />
+                                Style="{StaticResource ListBorder}">
+                                <Image x:Name="prodImg" Source="{Binding Image, Converter={StaticResource ImagePathConverter}}" />
                             </Border>
 
                             <Border
                                 Grid.Column="1"
                                 Margin="5"
                                 BorderThickness="1"
-                                Style="{StaticResource BorderSt}">
+                                Style="{StaticResource ListBorder}">
 
                                 <StackPanel VerticalAlignment="Center">
                                     <TextBlock FontWeight="Bold">
                                         <Run Text="{Binding Cat.CatName}" />
-                                        |<Run Text="{Binding ProdNameNavigation.ProdName1}" />
+                                        | <Run Text="{Binding ProdNameNavigation.ProdName1}" />
                                     </TextBlock>
                                     <TextBlock FontWeight="Bold" Text="Описание: " />
                                     <TextBlock
@@ -156,7 +154,6 @@
                                     <TextBlock Text="{Binding Sup.SupName, StringFormat='Поставщик: {0}'}" />
                                     <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
                                         <TextBlock
-                                            Margin="0,0,10,0"
                                             FontWeight="Bold"
                                             Foreground="Black"
                                             Text="{Binding Converter={StaticResource FinalPriceConverter}}" />
@@ -174,9 +171,8 @@
 
                             <Border
                                 Grid.Column="2"
-                                Height="135"
                                 Background="{Binding Sale, Converter={StaticResource SaleToBackgroundConverter}}"
-                                Style="{StaticResource BorderSt}">
+                                Style="{StaticResource ListBorder}">
                                 <TextBlock
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
@@ -208,7 +204,7 @@
                 Click="AddProdBtn_Click"
                 Content="Добавить товар"
                 Cursor="Hand"
-                Style="{StaticResource LoginBtn}" />
+                Style="{StaticResource GreenBtn}" />
 
             <Button
                 x:Name="EditProdBtn"
@@ -218,7 +214,7 @@
                 Click="EditProdBtn_Click"
                 Content="Редактировать товар"
                 Cursor="Hand"
-                Style="{StaticResource LoginBtn}" />
+                Style="{StaticResource GreenBtn}" />
 
             <Button
                 x:Name="DelProdBtn"
@@ -228,7 +224,7 @@
                 Click="DelProdBtn_Click"
                 Content="Удалить товар"
                 Cursor="Hand"
-                Style="{StaticResource LoginBtn}" />
+                Style="{StaticResource GreenBtn}" />
 
         </Grid>
 

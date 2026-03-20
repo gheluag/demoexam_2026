@@ -2,20 +2,16 @@
     x:Class="ShoeShop.Windows.AddProdWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:conv="clr-namespace:ShoeShop.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ShoeShop.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Добавление товара"
-    Width="900"
-    Height="750"
+    Width="860"
+    Height="770"
+    Icon="/Images/Icon.ico"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-
-    <Window.Resources>
-        <conv:ImagePathConverter x:Key="ImagePathConverter" />
-    </Window.Resources>
 
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
@@ -36,9 +32,11 @@
                     Margin="0,5"
                     FontSize="16"
                     Text="Наименование" />
-                <ComboBox x:Name="ProdNameCB" Margin="0,0,0,10"
-                          DisplayMemberPath = "ProdName1"
-                          SelectedValuePath = "IdProdName"/>
+                <ComboBox
+                    x:Name="ProdNameCB"
+                    Margin="0,0,0,10"
+                    DisplayMemberPath="ProdName1"
+                    SelectedValuePath="IdProdName" />
 
                 <TextBlock
                     Margin="0,5"
@@ -123,7 +121,8 @@
                 Margin="0,0,0,20"
                 Click="ChangeImageBtn_Click"
                 Content="Добавить изображение"
-                Style="{StaticResource LoginBtn}" />
+                Cursor="Hand"
+                Style="{StaticResource GreenBtn}" />
 
         </StackPanel>
         <StackPanel
@@ -137,14 +136,16 @@
                 Margin="5"
                 Click="SaveBtn_Click"
                 Content="Добавить"
-                Style="{StaticResource LoginBtn}" />
+                Cursor="Hand"
+                Style="{StaticResource GreenBtn}" />
             <Button
                 x:Name="CancelBtn"
                 Width="100"
                 Margin="5"
                 Click="CancelBtn_Click"
                 Content="Отмена"
-                Style="{StaticResource LoginBtn}" />
+                Cursor="Hand"
+                Style="{StaticResource GreenBtn}" />
         </StackPanel>
     </Grid>
 </Window>
